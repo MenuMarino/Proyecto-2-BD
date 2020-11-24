@@ -5,7 +5,6 @@ backend/index1.txt
 backend/indice.txt
 backend/tindex.txt
 backend/tsize.txt
-backend/uploads/
 .DS_Store
 node_modules/
 /dist/
