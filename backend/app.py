@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
+from generate_index import retrieval_cosine, create_index, create_tweets_index, create_complete_tweets_index
 import json
+import os
 
 # configuration
+UPLOAD_FOLDER = './uploads/'
 DEBUG = True
 
 # instantiate the app
@@ -12,35 +15,31 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:8080"}})
 
-tweets_db = {}
-
 @app.route('/')
 def home():
-    return 'unu'
+    return '¡Bienvenido Profesor Heider!'
 
 @app.route('/queryTweets', methods=['GET'])
 @cross_origin()
 def query_tweets():
     query = request.args.get("query")
+    # k = request.args.get("k")
     print("query: " + query)
 
-    # TODO: hacer query con el índice
-    return {
-            "id": 1026814183042687000,
-            "date": "Tue Aug 07 12:55:53 +0000 2018",
-            "text": "RT @de_patty: Asuuuuuuu..  @Renzo_Reggiardo me da mala espina...su pasado fujimorísta qué miedo!!!y @luchocastanedap hijo de corrupto que s…",
-            "user_id": 544008122,
-            "user_name": "@CARLOSPUEMAPE1",
-            "location": {},
-            "retweeted": True,
-            "RT_text": "Asuuuuuuu..  @Renzo_Reggiardo me da mala espina...su pasado fujimorísta qué miedo!!!y @luchocastanedap hijo de corrupto que secunda lo del padre NI HABLAR! Más comunicore Plop!lideran las preferencias para la alcaldía de Lima, según Ipsos | RPP Noticias https://t.co/w5TnU0Dmwq",
-            "RT_user_id": 302995560,
-            "RT_user_name": "@de_patty"
-           }
+    # TODO: -1 por ahora, pero luego sacar el 'k' del request
+    result = retrieval_cosine(query, -1)
+    return json.dumps(result)
+    
 
 @app.route('/uploadFile', methods=['POST'])
 @cross_origin()
-def index_file():    
+def index_file():
+    file = request.files['file']
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    create_index(file.filename)
+    create_tweets_index(file.filename)
+    create_complete_tweets_index(file.filename)
+    print(file.filename)
     return "success"
 
 if __name__ == '__main__':
