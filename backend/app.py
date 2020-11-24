@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, flash
 from flask_cors import CORS, cross_origin
 from generate_index import retrieval_cosine, create_index, create_tweets_index, create_complete_tweets_index
 import json

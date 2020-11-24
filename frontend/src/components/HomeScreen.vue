@@ -5,21 +5,18 @@
                <h2>Query</h2>
                <input type="text" v-model="query" placeholder="Buscar tweets...">
                <button v-on:click="processQuery()">Buscar</button>
-               <p>Query: {{ query }}</p>
                <div v-if="processingQuery">
                     <h3>Processing Query...</h3>
                </div>
           </div>
           <div lass="item">
-               <h2>Filter Query Results</h2>
+               <h2>Filter Resultados del Query</h2>
                <input type="text" v-model="filterResult" placeholder="Filtrar tweets...">
-               <p>Filter: {{filterResult}}</p>
           </div>
           <div id="file-section" class="item">
                <h2>Archivo para Indexar</h2>
                <input type="file" name="file" v-on:change="prepareToUploadFile($event.target.name, $event.target.files)">
-               <button v-on:click="uploadFile()">Index File</button>
-               <p>File: {{ this.selectedFiles != null ? this.selectedFiles : 'No se ha seleccionado un archivo' }}</p>
+               <button v-on:click="uploadFile()">Indexar Archivo</button>
                <div v-if="processingFile">
                     <h3>Indexing file...</h3>
                </div>
@@ -32,7 +29,6 @@
                  <p><strong>Text:</strong> {{ tweet.text }}</p>
                  <p><strong>User ID:</strong> {{ tweet.user_id }}</p>
                  <p><strong>Username:</strong> {{ tweet.user_name }}</p>
-                 <!-- TODO: location -->
                  <div v-if="tweet.retweeted">
                       <p><strong>Retweet Text:</strong> {{ tweet.RT_text }}</p>
                       <p><strong>Retweet User ID:</strong> {{ tweet.RT_user_id }}</p>
@@ -72,13 +68,14 @@ export default {
      ],
      methods: {
           uploadFile() {
-               // TODO: send file to server
+               if (this.selectedFiles.length === 0) {
+                    alert("Seleccione un archivo para indexar.")
+                    return;
+               }
                console.log(`NAME: ${this.selectedName}`);
                console.log(`FILES: ${this.selectedFiles[0]}`);
-               // TODO: show "Loading..." while server is indexing file
                this.processingFile = true;
 
-               // TODO: send multipart reuqest and set flag to false when response finished
                let formData = new FormData();
 
                formData.append('file', this.selectedFiles[0]);
@@ -103,7 +100,6 @@ export default {
           },
           prepareToUploadFile(name, files) {
                if (files.length === 0) {
-                    // show alert saying no file was chosen
                     console.log("Need one file to index.");
                     return;
                }
@@ -112,14 +108,14 @@ export default {
           },
           processQuery() {
                if (this.query === '') {
-                    // show alert saying cannot process empty query
+                    alert("El query debe tener al menos un caracter.")
                     console.log("Cannot process empty query.");
                     return;
                }
 
                this.processingQuery = true;
 
-               // TODO: mandar le un url paremeter con el 'this.query'
+               // TODO: mandar el k de los k mas cercanod
                axios.get(
                     `http://127.0.0.1:5000/queryTweets?query=${this.query}`,
                     {
@@ -143,7 +139,6 @@ export default {
 </script>
 
 <style>
-
      #inputs {
           display: flex;
           justify-content: space-evenly;
@@ -160,5 +155,4 @@ export default {
           border-color: black;
           border-style: solid;
      }
-
 </style>

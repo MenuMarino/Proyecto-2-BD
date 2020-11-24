@@ -461,9 +461,6 @@ def retrieval_cosine(query_text, k):
             else: 
                 collection[tweetId] = term_tweet_tf_idf * terms_tf_idf[term]
 
-    # TODO: agarrar el tweet entero
-    # TODO: ignorar retweets
-
     for tweetId, numerador in collection.items():
         tweet_correspondiente = buscar_tweet_completo(tweetId)
         collection[tweetId] = collection[tweetId] / ( tweet_correspondiente[1] * query_terms_len )
@@ -483,9 +480,9 @@ def retrieval_cosine(query_text, k):
 
 filename = "tweets1.json"
 
-create_index(filename)
-create_tweets_index(filename)
-create_complete_tweets_index(filename)
+# create_index(filename)
+# create_tweets_index(filename)
+# create_complete_tweets_index(filename)
 
 # results = retrieval_cosine("JorgeMunozAP Jorge", 3)
 
