@@ -52,9 +52,9 @@ En cuanto a la indexación de archivos en tiempo real, el usuario puede subir un
 ## Instrucciones
 
 ### Front
-* Entrar al carpeta **frontend**
+* Entrar al carpeta **/frontend**
 * `npm install`
-* Entrar a la carpeta src
+* Entrar a la carpeta `src`
 * `npm run serve`
 
 ### Backend
