@@ -9,7 +9,7 @@
 Este proyecto consiste en realizar un procesamiento de un conjunto de tweets, para posteriormente realizar una consulta de un query (e.g. “UTEC ciencia de la computación”) con el fin de retornar los tweets que tengan relación con el query. Esta página web tiene 3 funciones principales:
 * **Indexar:** Cargar un archivo `.json` (tweets) para realizar el procesamiento y guardarlo en la base de datos.
 * **Query:** Procesa una oración y devuelve los tweets más relevantes al query dado, además del tiempo que demoró en retornar los tweets. e.g. “UTEC ciencia de la computación” devolverá los tweets que hablen sobre UTEC y ciencia de la computación.
-* **Filtro:** Recibe una oración y filtra a los tweets devueltos por la oración. Como un CTRL + F.
+* **Filtro:** Recibe una oración/palabra y filtra a los tweets devueltos por la oración/palabra. Justo como funciona CTRL + F.
 
 ![alt text](images/pagina.png "Página web")
 
