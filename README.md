@@ -43,7 +43,9 @@ Después, por cada término del query, buscamos ese término en el índice. Busc
 
 Luego, por cada tweetId, dividimos `hash[tweetId]` por la norma del tweet con ese `tweetId` multiplicado por la norma del query (`query_terms_len`), el cual ya habíamos calculado anteriormente. Luego de este proceso, por cada `tweetId`, `hash[tweetId]` tendrá la similitud coseno entre ese tweet y el query. Finalmente, mientras dividiamos cada entrada del hash por la norma correspondiente, insertabamos en una lista una tupla donde tupla[0] tiene el tweet entero y tupla[1] tiene la similitud coseno entre ese tweet y el query. Ordenamos la lista por la similitud coseno y retornamos los k primeros que se pasó como parámetro, pero si se pasó como parámetro k = -1, se devuelven todos los resultados.
 
-![alt text](images/score2.png "Similitud coseno y devolver resultado")
+![alt text](images/score2.png "Similitud coseno")
+
+![alt text](images/return.png "Devolver resultado")
 
 En cuanto a la indexación de archivos en tiempo real, el usuario puede subir un archivo ‘.json’ que tiene tweets con una estructura específica. El back recibe este archivo, crea los índices apropiados y luego le avisa al front que el archivo está indexado y está listo para hacerle consultas de manera eficiente. En la imagen de abajo, las tres funciones que empiezan con `create`, son las que crean el índice, las demás, se encargan de guardar el archivo en la carpeta `/uploads`.
 
