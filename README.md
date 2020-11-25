@@ -11,7 +11,7 @@ Este proyecto consiste en realizar un procesamiento de un conjunto de tweets, pa
 * Query: Procesa una oración y devuelve los tweets mas relevantes al query dado. e.g. “UTEC ciencia de la computación” devolverá los tweets que hablen sobre UTEC y ciencia de la computación.
 * Filtro: Recibe una oración y filtra a los tweets devueltos por la oración. Como un CTRL + F.
 
-![alt text](images/pagina.png)
+![alt text](images/pagina.png "Pagina web")
 
 ## Construcción del índice invertido
 La construcción del índice invertido se hizo principalmente en dos etapas, la primera de ellas es el preprocesamiento que se tiene que hacer al archivo .json que contiene los tweets y la construcción en sí del índice invertido e índices auxiliares
