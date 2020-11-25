@@ -463,8 +463,9 @@ def retrieval_cosine(query_text, k):
 
     for tweetId, numerador in collection.items():
         tweet_correspondiente = buscar_tweet_completo(tweetId)
-        collection[tweetId] = collection[tweetId] / ( tweet_correspondiente[1] * query_terms_len )
-        result.append( ( tweet_correspondiente[0], collection[tweetId] ) )
+        if tweet_correspondiente is not None:
+            collection[tweetId] = collection[tweetId] / ( tweet_correspondiente[1] * query_terms_len )
+            result.append( ( tweet_correspondiente[0], collection[tweetId] ) )
 
     result.sort(key = lambda tup: tup[1], reverse=True)
     # result[:k]

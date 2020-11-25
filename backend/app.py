@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 from generate_index import retrieval_cosine, create_index, create_tweets_index, create_complete_tweets_index
 import json
 import os
+import time
 
 # configuration
 UPLOAD_FOLDER = './uploads/'
@@ -23,12 +24,15 @@ def home():
 @cross_origin()
 def query_tweets():
     query = request.args.get("query")
-    # k = request.args.get("k")
-    print("query: " + query)
+    k = request.args.get("k")
 
-    # TODO: -1 por ahora, pero luego sacar el 'k' del request
-    result = retrieval_cosine(query, -1)
-    return json.dumps(result)
+    # si k == -1, devuelve todos los tweets
+
+    start = int(round(time.time() * 1000))
+    result = retrieval_cosine(query, int(k))
+    end = int(round(time.time() * 1000))
+
+    return jsonify({'tweets': result, 'execTime': end-start})
     
 
 @app.route('/uploadFile', methods=['POST'])
@@ -44,4 +48,3 @@ def index_file():
 
 if __name__ == '__main__':
     app.run()
-

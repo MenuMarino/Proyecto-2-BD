@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <!-- TODO: poner el logo -->
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+    <img alt="Vue logo" src="./assets/logo.png">
     <HomeScreen></HomeScreen>
   </div>
 </template>

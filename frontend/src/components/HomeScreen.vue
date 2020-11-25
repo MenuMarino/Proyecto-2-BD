@@ -3,10 +3,16 @@
        <div id="inputs" class="super-item">
           <div id="query-section" class="item">
                <h2>Query</h2>
-               <input type="text" v-model="query" placeholder="Buscar tweets...">
+               <input class="query-input" type="text" v-model="query" placeholder="Query...">
+               <div class="space"></div>
+               <input class="query-input" type="text" v-model="k" placeholder="k más relevantes (opcional)...">
+               <div class="space"></div>
                <button v-on:click="processQuery()">Buscar</button>
                <div v-if="processingQuery">
                     <h3>Processing Query...</h3>
+               </div>
+               <div v-if="queryWasProcessed">
+                    <h3>Query execution time: {{ queryTime }} ms.</h3>
                </div>
           </div>
           <div lass="item">
@@ -41,8 +47,6 @@
 
 <script>
 
-// TODO: mandar el 'k' de los k mas cercanos
-
 import axios from 'axios';
 import filterTweetsMixin from '../mixins/filterTweetsMixin';
 
@@ -58,6 +62,9 @@ export default {
                processingQuery: false,
                processingFile: false,
                tweets: [],
+               queryTime: '',
+               queryWasProcessed: false,
+               k: '',
           }
      },
      created() {
@@ -115,20 +122,25 @@ export default {
 
                this.processingQuery = true;
 
-               // TODO: mandar el k de los k mas cercanod
                axios.get(
-                    `http://127.0.0.1:5000/queryTweets?query=${this.query}`,
+                    `http://127.0.0.1:5000/queryTweets?query=${this.query}&k=${this.k === '' ? -1 : this.k}`,
                     {
                          headers: {
                               'Access-Control-Allow-Origin': 'http://127.0.0.1:5000',
                          }
                     }
-                    ).then( (response) => {
+               ).then( (response) => {
                     console.log("QUERY TWEETS RESPONSE:");
                     console.log(response);
                     if (typeof response.data !== 'undefined') {
-                         this.tweets = response.data;
+                         this.queryTime = response.data.execTime;
+                         this.tweets = response.data.tweets;
+                         console.log("RETRIEVED TWEETS:");
+                         console.log(this.tweets);
                     }
+                    this.query = '';
+                    this.k = '';
+                    this.queryWasProcessed = true;
                     this.processingQuery = false;
                }).catch(() => {
                     console.log("error occurred when processing query");
@@ -142,6 +154,14 @@ export default {
      #inputs {
           display: flex;
           justify-content: space-evenly;
+     }
+
+     .query-input {
+          width: 120%;
+     }
+
+     .space {
+          width: 10%;
      }
 
      #query-results {
