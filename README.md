@@ -16,6 +16,7 @@
 ### Backend
 * Entrar a la carpeta **backend**
 * `python3 -m venv env`
+  * En caso de error, correr `apt-get install python3-venv` y luego `python3 -m venv env`
 * `source env/bin/activate`
 * `pip install -r requirements.txt`
 * `python3 app.py`
