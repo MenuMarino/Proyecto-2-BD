@@ -5,6 +5,21 @@
 * Benjamin Diaz
 * Gabriel Spranger
 
+## Instrucciones
+
+### Front
+* Entrar al carpeta **/frontend**
+* `npm install`
+* Entrar a la carpeta `src`
+* `npm run serve`
+
+### Backend
+* Entrar a la carpeta **backend**
+* `python3 -m venv env`
+* `source env/bin/activate`
+* `pip install -r requirements.txt`
+* `python3 app.py`
+
 ## Introducción
 Este proyecto consiste en realizar un procesamiento de un conjunto de tweets, para posteriormente realizar una consulta de un query (e.g. “UTEC ciencia de la computación”) con el fin de retornar los tweets que tengan relación con el query. Esta página web tiene 3 funciones principales:
 * **Indexar:** Cargar un archivo `.json` (tweets) para realizar el procesamiento y guardarlo en la base de datos.
@@ -50,18 +65,3 @@ Luego, por cada tweetId, dividimos `hash[tweetId]` por la norma del tweet con es
 En cuanto a la indexación de archivos en tiempo real, el usuario puede subir un archivo ‘.json’ que tiene tweets con una estructura específica. El back recibe este archivo, crea los índices apropiados y luego le avisa al front que el archivo está indexado y está listo para hacerle consultas de manera eficiente. En la imagen de abajo, las tres funciones que empiezan con `create`, son las que crean el índice, las demás, se encargan de guardar el archivo en la carpeta `/uploads`.
 
 ![alt text](images/index.png "Indexar Archivo")
-
-## Instrucciones
-
-### Front
-* Entrar al carpeta **/frontend**
-* `npm install`
-* Entrar a la carpeta `src`
-* `npm run serve`
-
-### Backend
-* Entrar a la carpeta **backend**
-* `python3 -m venv env`
-* `source env/bin/activate`
-* `pip install -r requirements.txt`
-* `python3 app.py`
