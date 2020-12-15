@@ -5,6 +5,10 @@
 * Benjamin Diaz
 * Gabriel Spranger
 
+## Link del video
+
+https://www.youtube.com/watch?v=wU9fY_aGdi0&t=638s&ab_channel=RodrigoAlonsoCespedesVelasquez
+
 ## Instrucciones
 
 ### Front
